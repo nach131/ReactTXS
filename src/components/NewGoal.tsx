@@ -1,7 +1,7 @@
 import { FormEvent } from 'react';
 
 export default function NewGoal() {
-  function handleSumbit(event: FormEvent) {
+  function handleSumbit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
 
