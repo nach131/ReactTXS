@@ -8,7 +8,7 @@ function App() {
       {/* <Input id="name" label="Your name" type="text" />
       <Input id="age" label="Your age" type="number" /> */}
 
-      <Container as={Button} />
+      <Container as={Button}>Boton</Container>
       <Container as={Input} />
       {/* <p>
         <Button el="button"> A Button</Button>
