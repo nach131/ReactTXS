@@ -41,7 +41,26 @@ type Action = {
 
 // definir las acciones para cambiar el estado
 // o que produzcan el nuevo estado
-function timersReducer(state: TimersState, action: Action): TimersState {}
+function timersReducer(state: TimersState, action: Action): TimersState {
+  if (action.type === 'START_TIMER') {
+    return {
+      ...state,
+      isRunning: true,
+    };
+  }
+  if (action.type === 'STOP_TIMER') {
+    return {
+      ...state,
+      isRunning: false,
+    };
+  }
+  if (action.type === 'ADD_TIMER') {
+    return {
+      ...state,
+      timers: [...state.timers],
+    };
+  }
+}
 
 export default function TimersContextProvider({
   children,
