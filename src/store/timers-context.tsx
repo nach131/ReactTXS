@@ -35,21 +35,32 @@ type TimersContextProviderProps = {
   children: ReactNode;
 };
 
+type Action = {
+  type: 'ADD_TIMER' | 'START_TIMER' | 'STOP_TIMER';
+};
+
+// definir las acciones para cambiar el estado
+// o que produzcan el nuevo estado
+function timersReducer(state: TimersState, action: Action): TimersState {}
+
 export default function TimersContextProvider({
   children,
 }: TimersContextProviderProps) {
-  useReducer(reducer, initialState);
+  const [timersState, dispatch] = useReducer(timersReducer, initialState);
 
   const ctx: TimersContexValue = {
     timers: [],
     isRunning: false,
     addTimer(timerData) {
+      dispatch({ type: 'ADD_TIMER' });
       // ...
     },
     startTimers() {
+      dispatch({ type: 'START_TIMER' });
       // ..
     },
     stopTimer() {
+      dispatch({ type: 'STOP_TIMER' });
       // ..
     },
   };
