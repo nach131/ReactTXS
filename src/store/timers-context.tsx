@@ -35,9 +35,18 @@ type TimersContextProviderProps = {
   children: ReactNode;
 };
 
-type Action = {
-  type: 'ADD_TIMER' | 'START_TIMER' | 'STOP_TIMER';
+type StartTimerActions = {
+  type: 'STOP_TIMER';
 };
+type StopTimerActions = {
+  type: 'START_TIMER';
+};
+type AddTimerActions = {
+  type: 'ADD_TIMER';
+  payload: Timer;
+};
+
+type Action = StartTimerActions | StopTimerActions | AddTimerActions;
 
 // definir las acciones para cambiar el estado
 // o que produzcan el nuevo estado
@@ -57,9 +66,16 @@ function timersReducer(state: TimersState, action: Action): TimersState {
   if (action.type === 'ADD_TIMER') {
     return {
       ...state,
-      timers: [...state.timers],
+      timers: [
+        ...state.timers,
+        {
+          name: action.payload.name,
+          duration: action.payload.duration,
+        },
+      ],
     };
   }
+  return state;
 }
 
 export default function TimersContextProvider({
@@ -68,10 +84,10 @@ export default function TimersContextProvider({
   const [timersState, dispatch] = useReducer(timersReducer, initialState);
 
   const ctx: TimersContexValue = {
-    timers: [],
-    isRunning: false,
+    timers: timersState.timers,
+    isRunning: timersState.isRunning,
     addTimer(timerData) {
-      dispatch({ type: 'ADD_TIMER' });
+      dispatch({ type: 'ADD_TIMER', payload: timerData });
       // ...
     },
     startTimers() {
