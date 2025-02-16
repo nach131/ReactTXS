@@ -1,9 +1,13 @@
-import { ComponentPropsWithRef, ElementType, ReactNode } from 'react';
+import {
+  type ReactNode,
+  type ElementType,
+  type ComponentPropsWithoutRef,
+} from 'react';
 
 type ContainerProps<T extends ElementType> = {
   as?: T;
   children: ReactNode;
-} & ComponentPropsWithRef<T>;
+} & ComponentPropsWithoutRef<T>;
 
 export default function Container<C extends ElementType>({
   as,
@@ -11,8 +15,9 @@ export default function Container<C extends ElementType>({
   ...props
 }: ContainerProps<C>) {
   const Component = as || 'div';
-
-  return <Component {...props}>{children}</Component>;
+  return (
+    <Component {...props}>
+      {children}
+    </Component>
+  );
 }
-
-// poliforfico componente

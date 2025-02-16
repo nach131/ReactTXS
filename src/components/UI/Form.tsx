@@ -1,18 +1,17 @@
 import {
-  type ComponentPropsWithoutRef,
   type FormEvent,
-  forwardRef,
-  useImperativeHandle,
+  type ComponentPropsWithoutRef,
   useRef,
+  useImperativeHandle,
+  forwardRef,
 } from 'react';
+
+export type FormHandle = {
+  clear: () => void;
+};
 
 type FormProps = ComponentPropsWithoutRef<'form'> & {
   onSave: (value: unknown) => void;
-};
-
-// para ponder tener la funcion el componente padre
-export type FormHandle = {
-  clear: () => void;
 };
 
 const Form = forwardRef<FormHandle, FormProps>(function Form(
@@ -21,7 +20,6 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
 ) {
   const form = useRef<HTMLFormElement>(null);
 
-  //   los metodos que se quieren ejecutar en el padre del componente
   useImperativeHandle(ref, () => {
     return {
       clear() {
@@ -35,15 +33,10 @@ const Form = forwardRef<FormHandle, FormProps>(function Form(
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-
-    const name = formData.get('name');
     const data = Object.fromEntries(formData);
     onSave(data);
-    form.current?.reset();
-
-    console.log('name:', name);
-    console.log('data:', data);
   }
+
   return (
     <form onSubmit={handleSubmit} {...otherProps} ref={form}>
       {children}

@@ -6,7 +6,7 @@ type InputProps = {
 } & ComponentPropsWithoutRef<'input'>;
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { label, id, ...props }: InputProps,
+  { label, id, ...props },
   ref
 ) {
   return (
