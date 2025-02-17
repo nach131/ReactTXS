@@ -10,7 +10,7 @@ export default function Header() {
 
       <Button
         onClick={
-          timersCtx.isRunning ? timersCtx.stopTimer : timersCtx.startTimers
+          timersCtx.isRunning ? timersCtx.stopTimers : timersCtx.startTimers
         }
       >
         {timersCtx.isRunning ? 'Stop' : 'Start'} Timers
